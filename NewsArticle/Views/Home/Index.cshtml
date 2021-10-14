@@ -1,0 +1,43 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Home Page";
+    int counter = 0;
+}
+<div min-height:92vh">
+    <div class="jumbotron">
+        <h1>News Arcticles</h1>
+
+    </div>
+
+    <div class="row">
+        @if (Model.articles == null)
+        {
+            <div>No articles available!!!</div>
+        }
+        else
+        {
+            foreach (var article in Model.articles)
+            {
+                var url = "/Home/Article/" + article.Id;
+                if (counter != 0 && counter % 3 == 0)
+                {
+                @:</div>
+                @:<div class="row">
+                }
+
+                <div class="col-md-4 col-sm-6 ">
+                    <div class="article-card">
+                        <h2> @article.title</h2>
+                        <div class="footer">
+
+                            <a href=@url>Read More ></a>
+                        </div>
+                    </div>
+
+                </div>
+                counter++;
+            }
+        }
+    </div>
+    </div>

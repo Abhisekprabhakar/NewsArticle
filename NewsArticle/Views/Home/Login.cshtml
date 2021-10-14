@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="page-layout">
+    <div class="container">
+        <center>
+            <div class="box">
+                <p class="box-heading">Login</p>
+                <hr />
+                <form class="mt-5" action="Login" method="post">
+                    <div class="form-group">
+                        @if (TempData["Registered-Username"] != null)
+                        {<input type="email" class="form-control form-control-sm bg-light" placeholder="Email Id" id="email" value="@TempData["Registered-Username"].ToString()"
+                                name="username" onchange="usernameChange()" required>
+                        }
+                        else
+                        {
+                            <input type="email" class="form-control form-control-sm bg-light" placeholder="Email Id" id="email" name="username" onchange="usernameChange()" required>
+                            <div class="error-message" id='emailError'>  </div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-sm bg-light" placeholder="Password" id="password" name="password" onchange="passwordChange()" required>
+                        <div class="error-message" id='passwordError'>  </div>
+
+                    </div>
+
+                    <div class="mt-5">
+                        @if (TempData["Invalid"] != null)
+                        {
+                            <div id="error" class="error-message">@TempData["Invalid"].ToString()</div>}
+                        <button class="btn btn-sm btn-primary col" type="submit" onclick="validation()">
+                            Login
+                        </button>
+                    </div>
+                </form>
+                <hr />
+                <p class="reference-link"> Don't have account? <a href="/Home/Register"> Sign Up</a></p>
+            </div>
+        </center>
+    </div>
+</div>
+<script>
+    function usernameChange() {
+        document.getElementById('emailError').innerHTML = "";
+        document.getElementById('error').innerHTML = "";
+    }
+    function passwordChange() {
+        document.getElementById('passwordError').innerHTML = "";
+        document.getElementById('error').innerHTML = "";
+    }
+    function validation() {
+        var valid = 0;
+        if (document.getElementById('email').validity.valueMissing) {
+            document.getElementById('emailError').innerHTML = "Please Enter Email!";
+            valid=0;
+        } else if (document.getElementById('email').validity.typeMismatch) {
+            document.getElementById('emailError').innerHTML = "Please Enter Valid Email!";
+            valid=0;
+        } else {
+            document.getElementById('emailError').innerHTML = "";
+            valid = 1;
+        }
+        if (document.getElementById('password').validity.valueMissing) {
+            document.getElementById('passwordError').innerHTML = "Please Enter Password!";
+            valid=0;
+        }  else {
+            document.getElementById('passwordError').innerHTML = "";
+            valid=1;
+        }
+        if (valid == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+</script>

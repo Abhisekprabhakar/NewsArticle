@@ -1,0 +1,52 @@
+﻿@model DataModel.User
+@{
+    ViewBag.Title = "Register";
+}
+
+<link rel="stylesheet" href="~/Content/Site.css">
+<div class="page-layout">
+    <div class="container">
+        <center>
+            <div class="box">
+                <p class="box-heading">Register</p>
+                <hr />
+                @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+                {
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.name, new { @class = "form-control form-control-sm bg-light", placeholder = "Name" })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "error-message" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.username, new { type = "email", @class = "form-control form-control-sm bg-light", placeholder = "Email Id" })
+                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "error-message" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.password, new { type = "password", @class = "form-control form-control-sm bg-light", placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "error-message" })
+
+                    </div>
+
+                    <div class="mt-5">
+                        @if (TempData["Invalid-Register"] != null)
+                        {
+                            <div class="error-message">@TempData["Invalid-Register"].ToString()</div>}
+                        <button class="btn btn-sm btn-primary col" type="submit">
+                            Register
+                        </button>
+                    </div>
+                }
+                <hr />
+                <p class="reference-link"> Already have account? <a href="/Home/Login"> Login</a></p>
+            </div>
+        </center>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
